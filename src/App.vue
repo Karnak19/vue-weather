@@ -1,7 +1,11 @@
 <template>
+<<<<<<< HEAD
   <div>
     <input type="text" v-model="city" />
   </div>
+=======
+  <input type="text" v-model="city" />
+>>>>>>> weather is now functional
   <div>
     <img :src="icon" alt="" />
   </div>
@@ -22,7 +26,10 @@
   <div v-if="error">
     {{ error.response.data.message }}
   </div>
+<<<<<<< HEAD
   <Footer />
+=======
+>>>>>>> weather is now functional
 </template>
 
 <script>
@@ -92,6 +99,7 @@ export default {
   color: #272727;
   margin-top: 60px;
   height: 93vh;
+<<<<<<< HEAD
   display: flex;
   flex-direction: column;
 }
@@ -149,18 +157,35 @@ input {
   #app {
     max-height: 85vh;
   }
+=======
+>>>>>>> weather is now functional
 }
 
 body {
-  background-color: #09814a;
+  background-color: #009fb7;
 }
 
 input {
-  background-color: #09814a;
+  background-color: #009fb7;
+  font-family: "Poppins", Avenir, Helvetica, Arial, sans-serif;
   border: 0;
-  border-bottom: #121619 2px solid;
-  max-width: 700px;
+  color: #fed766;
+  border-bottom: #fed766 2px solid;
+  max-width: 10em;
+  min-width: 7em;
   font-size: 70px;
+}
+
+.humid,
+.minmax,
+.feel {
+  justify-content: space-between;
+}
+
+.temp {
+  font-size: 26px;
+  margin: auto;
+  width: 50vw;
 }
 
 .flex {
@@ -173,5 +198,17 @@ input {
 
 .col {
   flex-direction: column;
+}
+
+@media screen and (max-width: 758px) {
+  input {
+    max-width: 5em;
+    min-width: 4em;
+  }
+
+  .temp {
+    width: 80vw;
+    font-size: 18px;
+  }
 }
 </style>
