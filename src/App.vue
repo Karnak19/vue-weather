@@ -150,4 +150,28 @@ input {
     max-height: 85vh;
   }
 }
+
+body {
+  background-color: #09814a;
+}
+
+input {
+  background-color: #09814a;
+  border: 0;
+  border-bottom: #121619 2px solid;
+  max-width: 700px;
+  font-size: 70px;
+}
+
+.flex {
+  display: flex;
+}
+
+.row {
+  flex-direction: row;
+}
+
+.col {
+  flex-direction: column;
+}
 </style>
