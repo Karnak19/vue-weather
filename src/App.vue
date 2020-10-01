@@ -29,6 +29,7 @@
 import { onMounted, ref, watch } from "vue";
 import axios from "axios";
 import Footer from "./components/Footer";
+import { apiKey } from "./main";
 
 export default {
   name: "App",
@@ -50,7 +51,7 @@ export default {
           error.value = null;
           try {
             const { data } = await axios.get(
-              `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&appid=${process.env.VUE_APP_WEATHER_API_KEY}&units=metric`
+              `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&appid=${apiKey}&units=metric`
             );
             weather.value = data.main;
             wind.value = data.wind;
