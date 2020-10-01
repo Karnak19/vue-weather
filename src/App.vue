@@ -149,6 +149,7 @@ input {
 
   #app {
     max-height: 85vh;
+<<<<<<< HEAD
     display: flex;
     flex-direction: column;
   }
@@ -206,6 +207,8 @@ input {
 
   #app {
     max-height: 85vh;
+=======
+>>>>>>> a0c3fdf9878bdcf841416b874d076b0a1e2535de
   }
 }
 </style>
