@@ -29,6 +29,7 @@
 import { onMounted, ref, watch } from "vue";
 import axios from "axios";
 import Footer from "./components/Footer";
+import { apiKey } from "./main";
 
 export default {
   name: "App",
@@ -50,7 +51,7 @@ export default {
           error.value = null;
           try {
             const { data } = await axios.get(
-              `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&appid=${process.env.VUE_APP_WEATHER_API_KEY}&units=metric`
+              `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&appid=${apiKey}&units=metric`
             );
             weather.value = data.main;
             wind.value = data.wind;
@@ -94,6 +95,63 @@ export default {
   height: 93vh;
   display: flex;
   flex-direction: column;
+}
+
+body {
+  background-color: #009fb7;
+}
+
+input {
+  background-color: #009fb7;
+  font-family: "Poppins", Avenir, Helvetica, Arial, sans-serif;
+  border: 0;
+  color: #fed766;
+  border-bottom: #fed766 2px solid;
+  max-width: 10em;
+  min-width: 7em;
+  font-size: 70px;
+}
+
+.humid,
+.minmax,
+.feel {
+  justify-content: space-between;
+}
+
+.temp {
+  font-size: 26px;
+  margin: auto;
+  width: 50vw;
+}
+
+.flex {
+  display: flex;
+}
+
+.row {
+  flex-direction: row;
+}
+
+.col {
+  flex-direction: column;
+}
+
+@media screen and (max-width: 758px) {
+  input {
+    max-width: 5em;
+    min-width: 4em;
+  }
+
+  .temp {
+    width: 80vw;
+    font-size: 18px;
+  }
+
+  #app {
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 body {
