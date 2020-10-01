@@ -1,11 +1,7 @@
 <template>
-<<<<<<< HEAD
   <div>
     <input type="text" v-model="city" />
   </div>
-=======
-  <input type="text" v-model="city" />
->>>>>>> weather is now functional
   <div>
     <img :src="icon" alt="" />
   </div>
@@ -26,10 +22,7 @@
   <div v-if="error">
     {{ error.response.data.message }}
   </div>
-<<<<<<< HEAD
   <Footer />
-=======
->>>>>>> weather is now functional
 </template>
 
 <script>
@@ -99,7 +92,6 @@ export default {
   color: #272727;
   margin-top: 60px;
   height: 93vh;
-<<<<<<< HEAD
   display: flex;
   flex-direction: column;
 }
@@ -156,9 +148,9 @@ input {
 
   #app {
     max-height: 85vh;
+    display: flex;
+    flex-direction: column;
   }
-=======
->>>>>>> weather is now functional
 }
 
 body {
@@ -209,6 +201,10 @@ input {
   .temp {
     width: 80vw;
     font-size: 18px;
+  }
+
+  #app {
+    max-height: 85vh;
   }
 }
 </style>
