@@ -1,5 +1,7 @@
 <template>
-  <input type="text" v-model="city" />
+  <div>
+    <input type="text" v-model="city" />
+  </div>
   <div>
     <img :src="icon" alt="" />
   </div>
@@ -20,14 +22,19 @@
   <div v-if="error">
     {{ error.response.data.message }}
   </div>
+  <Footer />
 </template>
 
 <script>
 import { onMounted, ref, watch } from "vue";
 import axios from "axios";
+import Footer from "./components/Footer";
+
 export default {
   name: "App",
-  components: {},
+  components: {
+    Footer,
+  },
   setup() {
     const city = ref("");
     const icon = ref("");
@@ -85,6 +92,8 @@ export default {
   color: #272727;
   margin-top: 60px;
   height: 93vh;
+  display: flex;
+  flex-direction: column;
 }
 
 body {
@@ -135,6 +144,10 @@ input {
   .temp {
     width: 80vw;
     font-size: 18px;
+  }
+
+  #app {
+    max-height: 85vh;
   }
 }
 </style>
