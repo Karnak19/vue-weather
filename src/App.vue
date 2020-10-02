@@ -108,6 +108,10 @@ input {
   font-size: 70px;
 }
 
+input::placeholder {
+  color: #fed8666b;
+}
+
 input:focus {
   outline: 0;
 }
