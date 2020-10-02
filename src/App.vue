@@ -1,27 +1,12 @@
 <template>
   <div>
-    <input type="text" v-model="city" />
+    <input type="text" v-model="input" placeholder="city" />
   </div>
-  <div>
-    <img :src="icon" alt="" />
-  </div>
-  <div class="temp flex col">
-    <div v-if="weather.temp_min" class="minmax flex row">
-      <div>Temperature :</div>
-      <div>{{ weather.temp_min }} &deg;C / {{ weather.temp_max }} &deg;C</div>
-    </div>
-    <div v-if="weather.feels_like" class="feel flex row">
-      <div>Ressentie :</div>
-      <div>{{ weather.feels_like }} &deg;C</div>
-    </div>
-    <div v-if="weather.humidity" class="humid flex row">
-      <div>Humidité :</div>
-      <div>{{ weather.humidity }}</div>
-    </div>
-  </div>
+  <MeteoCard :weather="weather" :city="city" :icon="icon" />
   <div v-if="error">
     {{ error.response.data.message }}
   </div>
+  <div class="spacer"></div>
   <Footer />
 </template>
 
@@ -29,14 +14,17 @@
 import { onMounted, ref, watch } from "vue";
 import axios from "axios";
 import Footer from "./components/Footer";
+import MeteoCard from "./components/MeteoCard";
 import { apiKey } from "./main";
 
 export default {
   name: "App",
   components: {
     Footer,
+    MeteoCard,
   },
   setup() {
+    const input = ref("");
     const city = ref("");
     const icon = ref("");
     const error = ref(null);
@@ -47,15 +35,16 @@ export default {
 
     onMounted(() => {
       async function getWeather() {
-        if (city.value.length >= 3) {
+        if (input.value.length >= 3) {
           error.value = null;
           try {
             const { data } = await axios.get(
-              `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&appid=${apiKey}&units=metric`
+              `https://api.openweathermap.org/data/2.5/weather?q=${input.value}&appid=${apiKey}&units=metric`
             );
-            weather.value = data.main;
+            weather.value = { ...data.main, desc: data.weather[0].description };
             wind.value = data.wind;
             icon.value = `http://openweathermap.org/img/wn/${data.weather[0].icon}@4x.png`;
+            city.value = data.name;
           } catch (err) {
             error.value = err;
           }
@@ -67,7 +56,7 @@ export default {
       }
 
       watch(
-        () => city.value,
+        () => input.value,
         () => {
           clearTimeout(debounceTimeout);
           debounceTimeout = setTimeout(() => {
@@ -77,7 +66,7 @@ export default {
       );
     });
 
-    return { city, icon, weather, error };
+    return { input, city, icon, weather, error };
   },
 };
 </script>
@@ -95,14 +84,21 @@ export default {
   height: 93vh;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
 
 body {
-  background-color: #009fb7;
+  background: linear-gradient(#204d4d, #71f0ae);
+  height: 93vh;
+}
+
+img {
+  -webkit-filter: drop-shadow(5px 5px 5px rgb(216, 216, 216));
+  filter: drop-shadow(5px 5px 5px rgb(216, 216, 216));
 }
 
 input {
-  background-color: #009fb7;
+  background-color: transparent;
   font-family: "Poppins", Avenir, Helvetica, Arial, sans-serif;
   border: 0;
   color: #fed766;
@@ -110,18 +106,6 @@ input {
   max-width: 10em;
   min-width: 7em;
   font-size: 70px;
-}
-
-.humid,
-.minmax,
-.feel {
-  justify-content: space-between;
-}
-
-.temp {
-  font-size: 26px;
-  margin: auto;
-  width: 50vw;
 }
 
 .flex {
@@ -136,76 +120,20 @@ input {
   flex-direction: column;
 }
 
+.space-between {
+  justify-content: space-between;
+}
+
 @media screen and (max-width: 758px) {
   input {
     max-width: 5em;
     min-width: 4em;
   }
 
-  .temp {
-    width: 80vw;
-    font-size: 18px;
-  }
-
   #app {
-    max-height: 85vh;
+    max-height: 92vh;
     display: flex;
     flex-direction: column;
-  }
-}
-
-body {
-  background-color: #009fb7;
-}
-
-input {
-  background-color: #009fb7;
-  font-family: "Poppins", Avenir, Helvetica, Arial, sans-serif;
-  border: 0;
-  color: #fed766;
-  border-bottom: #fed766 2px solid;
-  max-width: 10em;
-  min-width: 7em;
-  font-size: 70px;
-}
-
-.humid,
-.minmax,
-.feel {
-  justify-content: space-between;
-}
-
-.temp {
-  font-size: 26px;
-  margin: auto;
-  width: 50vw;
-}
-
-.flex {
-  display: flex;
-}
-
-.row {
-  flex-direction: row;
-}
-
-.col {
-  flex-direction: column;
-}
-
-@media screen and (max-width: 758px) {
-  input {
-    max-width: 5em;
-    min-width: 4em;
-  }
-
-  .temp {
-    width: 80vw;
-    font-size: 18px;
-  }
-
-  #app {
-    max-height: 85vh;
   }
 }
 </style>
