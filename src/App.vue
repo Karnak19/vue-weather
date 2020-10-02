@@ -108,6 +108,10 @@ input {
   font-size: 70px;
 }
 
+input:focus {
+  outline: 0;
+}
+
 .flex {
   display: flex;
 }
